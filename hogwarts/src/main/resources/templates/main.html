@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
+<link rel="stylesheet" href="/css/mainPage.css">
+<div th:replace="/fragments/header.html :: fragment-header"></div>
+<body onLoad="javascript:pop()">
+<div th:replace="/fragments/nav.html :: fragment-nav"></div>
+<!-- 세부 메뉴 + 메인 -->
+<div class="d-flex justify-content-center align-items-start" style="min-width: 100em;">
+
+  <div>
+    <img alt="" src="/images/main.jpg" class="main--page--img">
+    <div class="d-flex justify-content-center align-items-start">
+      <div class="main--page--div">
+        <div class="d-flex">
+          <div class="main--page--notice">
+            <h3>
+              <a href="/board/boardList">조회수 많은글</a>
+            </h3>
+            <div class="main--page--split"></div>
+            <table class="board_list">
+              <thead>
+              <tr>
+                <th>글 번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>조회수</th>
+              </tr>
+              </thead>
+              <tbody>
+              <!-- 최신 게시글이 있을 경우 출력 -->
+              <tr th:each="post : ${latestPost}">
+                <td th:text="${post.id}"></td>
+                <td th:text="${post.title}"></td>
+                <td th:text="${post.username}"></td>
+                <td th:text="${post.hit}"></td>
+              </tr>
+
+              <!-- 최신 게시글이 없을 경우 -->
+              <tr th:if="${latestPost == null or latestPost.isEmpty()}">
+                <td colspan="4">등록된 게시글이 없습니다.</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div>
+        <!-- 로그인하지 않은 사용자 프로필 표시 -->
+        <div class="main--page--profile" th:if="${username == null}">
+          <ul class="d-flex align-items-start" style="margin: 0;">
+            <li><span class="material-symbols-rounded" style="margin-top: 2px;">person</span>&nbsp;&nbsp;</li>
+            <li style="font-weight: 600; font-size: 18px;">로그인 해주세요.</li>
+          </ul>
+          <hr style="width: 100%;">
+          <p>로그인 후, 개인 정보를 확인할 수 있습니다.</p>
+          <div class="profile--button--div">
+            <a href="/login"><button>로그인</button></a>
+            <a href="/register"><button>회원가입</button></a>
+          </div>
+        </div>
+
+        <!-- 로그인한 사용자 프로필 표시 -->
+        <div class="main--page--profile" th:if="${username != null}">
+          <ul class="d-flex align-items-start" style="margin: 0;">
+            <li><span class="material-symbols-rounded" style="margin-top: 2px;">person</span>&nbsp;&nbsp;</li>
+            <li style="font-weight: 600; font-size: 18px;" th:text="${username}">사용자 이름</li>
+          </ul>
+          <hr style="width: 100%;">
+          <p>개인 정보를 확인하고 관리하세요.</p>
+          <div class="profile--button--div">
+            <a href="/info/profile"><button>내 프로필</button></a>
+            <a href="/logout"><button>로그아웃</button></a>
+          </div>
+        </div>
+        <br>
+
+        <div class="main--page--info">
+          <ul class="d-flex align-items-start" style="margin: 0;">
+            <li><span class="material-symbols-rounded" style="margin-top: 2px;">notifications</span>&nbsp;&nbsp;
+            <li style="font-weight: 600; font-size: 18px;">알림</li>
+          </ul>
+          <ul id="notification-list">
+            <!-- 알림이 있을 경우 동적으로 알림을 추가 -->
+            <th:block th:if="${notifications != null}">
+              <li th:each="notification : ${notifications}">
+                <p th:text="${notification.message}"></p>
+                <small th:text="${#temporals.format(notification.timestamp, 'yyyy/MM/dd HH:mm')}"></small>
+              </li>
+            </th:block>
+            <!-- 알림이 없을 경우 메시지 출력 -->
+            <th:block th:if="${notifications == null or notifications.isEmpty()}">
+              <p>알림이 없습니다.</p>
+            </th:block>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  COPYRIGHT(C) 2024 <a href="https://github.com/seoyounglee0105/university_management_project">호그와트 UNIVERSITY</a>. ALL RIGHTS RESERVED.
+</footer>
+</body>
+</html>
