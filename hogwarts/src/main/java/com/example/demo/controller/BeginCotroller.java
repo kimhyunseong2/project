@@ -61,6 +61,17 @@ public class BeginCotroller {
         return "main";
     }
 
+    @PostMapping("/notification/delete/{id}")
+    public String deleteNotification(@PathVariable Long id) {
+        // 알림 삭제
+        notificationService.deleteNotification(id);
+
+        // 알림 목록을 다시 가져와서 모델에 추가
+        // 알림을 삭제한 후, 삭제된 알림이 더 이상 목록에 나타나지 않도록 처리
+        return "redirect:/";  // 삭제 후 메인 페이지로 리다이렉트
+    }
+
+
     @GetMapping("/info/profile")
     public String getProfile(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
