@@ -28,4 +28,6 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
     void deleteByUsername(String username);
 
+
+
 }

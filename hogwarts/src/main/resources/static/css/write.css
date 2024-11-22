@@ -43,6 +43,7 @@
     resize: vertical;
 }
 
+
 /* 제출 버튼 스타일 */
 .container .btn {
     background-color: #007bff;
@@ -53,7 +54,6 @@
     border-radius: 5px;
     text-align: center;
     text-decoration: none;
-    margin-top: 20px;
     cursor: pointer;
     border: none;
     transition: background-color 0.3s ease;
@@ -67,6 +67,30 @@
 /* 제출 버튼 클릭 시 활성화 상태 */
 .container .btn:active {
     background-color: #004085;
+}
+
+.container .btn-cancel {
+    background-color: #f44336;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.container .btn-cancel:hover {
+    background-color: #d32f2f;
+}
+
+/* 제출 버튼 클릭 시 활성화 상태 */
+.container .btn-cancel:active {
+    background-color: #b71c1c;
 }
 
 /* 기본적인 입력 필드 포커스 효과 */

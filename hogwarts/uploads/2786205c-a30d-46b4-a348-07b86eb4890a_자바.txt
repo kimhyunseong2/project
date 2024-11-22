@@ -1,0 +1,2191 @@
+k-디지털
+------------------------------------------------------------------
+7월-자바
+8월-DB연동 및 프론트엔드(JS, jQuery, 리액트 포함)
+오전-자바
+오후-도커
+------------------------------------------------------------------
+7월8일
+정보
+-이클립스에서 프로젝트만들때 module체크해제하면 모듈프로젝트로 생성하지않는다 
+
+-제어판->사용자계정->windows 자격증명관리에 들어가 일반자격증명에 git을 제거할 수 있다
+
+-클래스,인터페이스명은 대문자로시작
+
+-git status : 꼭 확인해야 하는 것은 아니지만 현재 상태를 확인할 수 있는 명령어이다.
+
+설치
+c드라이브에 _dev폴더를 생성
+_dev폴더안에 jdk11, jdk21설치
+(구글에open jdk11검색,오라클에서 jdk21- x64 Compressed Archive)
+git설치(download)-standalone Installer
+
+git에올리고싶지않으면
+- .gitignore파일에 올리고싶지않은 파일을 적어 저장
+
+git에 올리는법
+-Repository를 만든다
+-cmd에 명령어를 차례로 입력한다.
+1. git init : 제일 먼저 해줘야 할 것 바로 현재 폴더를 git의 관리하에 둘
+2. git add . : 현재 폴더 변경된것 모두를 깃에 올린다
+3. git commit -m "first commit(메시지)" : 첫 커밋이란 메세지와 함께 커밋을 날렸다
+4. git remote add origin https://github.com/kimhyunseong2/202407JAVA.git : 현재 폴더와 깃헙레포지토리의 오리진마스터와 연결한다
+5. git push -u origin master : 깃을 서버의 오리진에 로컬의 마스터를 밀어넣는다.
+------------------------------------------------------------------
+7월 9일 자바
+------------------------------------------------------------------
+정보
+-기본 타입의 크기는 CPU나 운영체제에 따라 변하지 않음
+-String타입은 프리미티브타입이 아니다
+-alt+shift+j 주석생성
+javadoctool
+-project->Generate javadoc->vm option에 
+-local ko_KR -encoding UTF-8 -charset UTF-8 -docencoding UTF-8입력
+
+코드
+문제1:변수의 값을 변경하는 코드(swap)
+int x = 10;
+int y = 20;
+System.out.println("x:" + x + ", y:" + y);
+실행결과: x:10, y:20
+
+int temp = x;
+x = y;
+y = temp;
+System.out.println("x:" + x + ", y:" + y);
+실행결과: x:20, y:10
+------------------------------------------------------------------
+int x = 10;
+int y = 20;
+System.out.printf("x=%d, y=%d\n", x, y);
+실행결과: x=10, y=20
+
+int temp = x;
+x = y;
+y = temp;
+System.out.printf("x=%d, y=%d\n", x, y);
+실행결과: x=20, y=10
+------------------------------------------------------------------
+메서드를 만듦
+public class swap {
+	
+	
+	public static void swap(int a, int b) {
+		 int temp = a;
+		 a = b;
+		 b = temp;
+		 System.out.printf("a=%d, b=%d\n", a, b);
+	}
+	public static void main(String[] args) {
+		int x = 10;
+		int y = 20;
+		System.out.printf("x=%d, y=%d\n", x, y);
+		swap(x, y);
+	   
+	}
+
+}
+실행결과: x=10, y=10
+              a=10, b=10
+------------------------------------------------------------------
+문제2:입력받아 남은 사과갯수 구하는 코드
+public class Ex02 {
+
+public static void main(String[] args) {
+		
+		Scanner scan = new Scanner(System.in);
+		System.out.print("사과의 갯수 입력:");
+		String input = scan.nextLine();
+		int apple = Integer.parseInt(input);
+	
+		System.out.print("사람 명수 입력:");
+		input = scan.nextLine();
+		int pepole = Integer.parseInt(input);
+		
+		int result = apple % (pepole);
+		System.out.printf("남은 사과의 개수: %d개\n",result);	
+------------------------------------------------------------------	
+메서드를 만듦
+public static int getCount(String msg, Scanner sc) {
+		System.out.print(msg);
+		String input = sc.nextLine();
+		return Integer.parseInt(input);
+	}
+	public static void main(String[] args) {
+		
+		
+		Scanner scan = new Scanner(System.in);
+		
+		int apple = getCount("사과의 갯수 입력:", scan);
+//		System.out.print("사과의 갯수 입력:");
+//		String input = sc.nextLine();
+//		int apple = Integer.parseInt(input);
+	
+		
+		int pepole = getCount("사람 명수 입력:", scan);
+//		System.out.print("사람 명수 입력:");
+//		input = scan.nextLine();
+//		int pepole = Integer.parseInt(input);
+		
+		int result = apple % (pepole);
+		System.out.printf("남은 사과의 개수: %d개\n",result);
+------------------------------------------------------------------
+문제3: 두 개의 값을 받아서 큰수를 출력하는 코드(단,같으면 0으로 출력)
+public class Ex02 {
+	
+	
+	
+	public static void main(String[] args) {
+		
+		
+		Scanner scan = new Scanner(System.in);
+		System.out.print("숫자를입력:");
+		String input = scan.nextLine();
+		int num1 = Integer.parseInt(input);
+		
+		System.out.print("숫자를입력:");
+		input = scan.nextLine();
+		int num2 = Integer.parseInt(input);
+		
+		if(num1>num2) {
+			System.out.print(num1);
+		}
+		else if(num1<num2) {
+			System.out.print(num2);
+		}
+		else if(num1==num2) {
+			System.out.print(0);
+		}
+------------------------------------------------------------------
+문제4: 3개의 정수값을 받아 최대값을 구하여 출력하는 코드
+public class Ex02 {
+	
+	
+	
+	public static void main(String[] args) {
+		
+		
+		Scanner scan = new Scanner(System.in);
+		System.out.print("첫번째 정수를 입력하세요:");
+		String input = scan.nextLine();
+		int num1 = Integer.parseInt(input);
+		
+		System.out.print("두번째 정수를 입력하세요:");
+		input = scan.nextLine();
+		int num2 = Integer.parseInt(input);
+		
+		System.out.print("세번째 정수를 입력하세요:");
+		input = scan.nextLine();
+		int num3 = Integer.parseInt(input);
+		int max = num1;
+		
+		if(num2>max) {
+			max= num2;
+		}
+		
+		if(num3>max) {
+			max= num3;
+		}
+		System.out.println("최대값은" + max + "입니다");
+------------------------------------------------------------------
+문제5: 학점을 입력받아 등급을 나타내는 코드(if 문)
+public class Ex02 {
+	
+	
+	
+	public static void main(String[] args) {
+		
+		
+		Scanner scan = new Scanner(System.in);
+		System.out.print("학점을 입력:");
+		String input = scan.nextLine();
+		int in = Integer.parseInt(input);
+		
+		if(in>=90) {
+			System.out.print("A");
+		}else if(in>=80){
+			System.out.print("B");
+		}else if(in>=70){
+			System.out.print("C");
+		}else if(in>=60){
+			System.out.print("D");
+		}else {
+			System.out.print("F");
+		}
+
+------------------------------------------------------------------
+(Switch문)
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		System.out.print("학점을 입력:");
+		int in = scan.nextInt();
+		String score = "";
+		
+		switch(in/10) {
+		case 10:
+		case 9:
+			score = "A";
+			break;
+		case 8:
+			score = "B";
+			break;
+		case 7:
+			score = "C";
+			break;
+		case 6:
+			score = "D";
+			break;
+		default:
+			score = "F";
+		
+			
+		}
+		System.out.print(score);
+
+	}
+
+------------------------------------------------------------------
+문제6: 정수의값을 입력받고 양의정수면 그냥출력 음의정수면 양수로 변환에서 출력하는 코드
+public class Ex02 {
+	
+	
+	
+	public static void main(String[] args) {
+		
+		
+		Scanner scan = new Scanner(System.in);
+		System.out.print("정수를 입력하세요:");
+		
+		int num = scan.nextInt();
+		
+		if(num<0) {
+			num = -num;
+		}
+		System.out.println(num);
+
+	}
+------------------------------------------------------------------
+7월10일 자바
+정보
+-자동타입변환에서 예외 char타입의 허용범위는 음수를 포함하지않는다  byte타입은 음수를 포함하기때문에 컴파일에러가난다.
+ex) byte byteValue = 65;
+     char charValue = byteValue; - 컴파일 에러
+
+-조건문에서 괄호{ }블록은 생략하지 않고 작성하는 것을 추천한다
+
+-문자열을 기본타입으로 강제 타입변환 페이지 105쪽참고
+
+-반대로 기본타입의 값을 문자열로 변경하는 경우 String.valueOf()메소드를 이용한다(106쪽참고)
+
+-break문은 반복문을 하나만 빠져나간다
+------------------------------------------------------------------
+삼항연산자코드
+public class Prob5 {
+
+	public static void main(String[] args) {
+		int in = 90;
+		String score = (in >= 90) ? "A":
+			    (in >= 80) ? "B":
+			    (in >= 70) ? "C":
+			    (in >= 60) ? "D":"F";
+		System.out.println(score);
+
+	}
+------------------------------------------------------------------
+비트연산자코드
+public class BitAnd {
+
+	public static void main(String[] args) {
+		int a = 10;
+		int b = -10;
+		System.out.printf("[%32s] %d\n",Integer.toBinaryString(a),a);
+		System.out.printf("[%32s] %d\n",Integer.toBinaryString(b),b);
+		System.out.printf("[%32s] %d\n",Integer.toBinaryString(a&b),a&b);
+		System.out.printf("[%32s] %d\n",Integer.toBinaryString(a|b),a|b);
+	}
+
+------------------------------------------------------------------
+문제1: 1부터 10까지 출력하는 코드
+public class Ex3 {
+
+	public static void main(String[] args) {
+		for(int i = 1; i<= 10; i++) {
+			System.out.println(i);
+		}
+		
+	}
+
+}
+------------------------------------------------------------------
+문제2: 1부터 100까지의 합을 출력하는 코드
+public class Ex3 {
+
+	public static void main(String[] args) {
+		int sum =0;
+		for(int i = 1; i<= 100; i++) {
+			sum += i;
+		}
+		System.out.println("1부터 100까지의 합은:" +sum);
+	}
+
+}
+------------------------------------------------------------------
+문제3: 1부터 10까지 짝수를 출력하는 코드
+public class Ex3 {
+
+	public static void main(String[] args) {
+		for (int i = 1; i <= 10; i++) {
+			if(i % 2 == 0) {
+				System.out.println(i);
+			}
+			
+		}
+	}
+}
+------------------------------------------------------------------
+문제4: 1부터 100까지 짝수의 합을 출력하는 코드
+public static void main(String[] args) {
+		int sum = 0;
+		for(int i =1; i<= 100; i++) {
+			
+			if(i % 2 ==0) {
+				
+				sum += i;
+			}
+				
+		}
+		System.out.println("1부터 100까지의 짝수의합은:" + sum	);
+	}
+
+}
+------------------------------------------------------------------
+문제5: 구구단 출력하는 코드
+public class Ex3 {
+
+	public static void main(String[] args) {
+		for(int i =2; i<= 9; i++) {	
+			System.out.printf("*********%d단********\n",i);
+			for(int j = 1; j<=9; j++) {
+				System.out.println(i + "x" +j  + "=" + (i*j));
+			}
+				
+		}
+		
+	}
+}
+------------------------------------------------------------------
+문제6: 구구단 출력(입력받아서)하는코드
+public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		System.out.print("수를입력하세요:");
+		int i = scan.nextInt();
+			for(int j = 1; j<=9; j++) {
+				System.out.println(i + "x" +j  + "=" + (i*j));
+			}	
+		}
+	}
+
+------------------------------------------------------------------
+break문 코드
+public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		for (;;) {
+			System.out.print("명령>>");
+			String input = scan.nextLine();
+			if(input.equalsIgnoreCase("q")) {
+				break;
+			}
+		}
+		System.out.println("종료!!");
+	}
+}
+------------------------------------------------------------------
+문제7: 페이지 183쪽7번문제 (if문)
+public static void main(String[] args) {
+		boolean run = true;
+		int balance = 0;
+		Scanner scan = new Scanner(System.in);
+		
+		
+		while(run) {
+			System.out.println("-------------------------------");
+			System.out.println("1.예금 : 2.출금 : 3.잔고 : 4.종료");
+			System.out.println("-------------------------------");
+			System.out.print("선택> ");
+			int input = scan.nextInt();
+			if(input == 1) {
+				System.out.print("예금액> ");
+				balance += scan.nextInt();
+			} else if(input == 2) {
+				System.out.print("출금액> ");
+				balance -= scan.nextInt();
+			} else if(input == 3) {
+				System.out.printf("잔고> %d\n",balance);
+			}
+			else {
+				System.out.println("프로그램 종료");
+				break;
+			}
+		}	
+	}
+------------------------------------------------------------------
+(Switch문)
+public static void main(String[] args) {
+		boolean run = true;
+		int balance = 0;
+		Scanner scan = new Scanner(System.in);
+		
+		
+		while(run) {
+			System.out.println("-------------------------------");
+			System.out.println("1.예금 : 2.출금 : 3.잔고 : 4.종료");
+			System.out.println("-------------------------------");
+			System.out.print("선택> ");
+			int input = scan.nextInt();
+			switch (input){
+			case 1:
+				System.out.print("예금액> ");
+				balance += scan.nextInt();
+				break;
+			case 2:
+				System.out.print("출금액> ");
+				balance -= scan.nextInt();
+				break;
+			case 3:
+				System.out.printf("잔고> %d\n",balance);
+				break;
+			case 4:
+				System.out.println("프로그램 종료");
+				  run = false;
+				
+						
+			}
+			
+			
+		}
+		
+	}	
+------------------------------------------------------------------
+7월 11일
+정보
+-repeat(): String 메서드 중 하나로 String 문자열을 파라미터의 주어진 횟수만큼 반복
+
+-배열에서 인덱스는 0부터 시작한다.
+
+-배열 선언
+형식1: 타입[] 변수; 형식2: 타입 변수[];
+
+-타입 변수[] = new 타입[] {값0,값1}; = 타입 변수[] = {값0,값1 }; ( 코드 두개는 같다)
+- 교수님 깃허브
+https://github.com/Jiwoong-Jung/202407Java
+------------------------------------------------------------------
+문제1: 3개의 정수 값을 입력받아 중앙값을 구하고 출력하는 코드
+public static void main(String[] args) {
+		Scanner std = new Scanner(System.in);
+		
+		System.out.println("세 정수의 중앙값을 구합니다.");
+		System.out.print("a값 : ");
+		int a = std.nextInt();
+		System.out.print("b값 : ");
+		int b = std.nextInt();
+		System.out.print("c값 : ");
+		int c = std.nextInt();
+		
+		if(a>=b) {
+			if(b>=c) {
+				System.out.printf("중앙값은: %d",b);
+			}else if(a<=c) {
+				System.out.printf("중앙값은: %d",a);
+			}else {
+				System.out.printf("중앙값은: %d",c);
+			}
+		} else if(a>c) {
+			System.out.printf("중앙값은: %d",c);
+		}else if(b > c) {
+			System.out.printf("중앙값은: %d",a);
+		}else {
+			System.out.printf("중앙값은: %d",b);
+		}
+		
+		
+		
+
+	}
+------------------------------------------------------------------
+메서드만듦
+public class probex1 {
+	public static int CenterNum(int a, int b, int c ) {
+		if(a>=b) {
+			if(b>=c) {
+				return b;
+			}else if(a<=c) {
+				return a;
+			}else {
+				return c;
+			}
+		} else if(a>c) {
+			return c;
+		}else if(b > c) {
+			return a;
+		}else {
+			return b;
+		}
+		
+		
+	}
+	public static void main(String[] args) {
+		Scanner std = new Scanner(System.in);
+		
+		System.out.println("세 정수의 중앙값을 구합니다.");
+		System.out.print("a값 : ");
+		int a = std.nextInt();
+		System.out.print("b값 : ");
+		int b = std.nextInt();
+		System.out.print("c값 : ");
+		int c = std.nextInt();
+		System.out.printf("세 정수의 중앙값은 " + a, b, c);
+		
+		
+		
+		
+		
+
+	}
+
+같은코드
+public class probex1 {
+	public static int cnm(int a, int b, int c ) {
+		if ((b >= a && c <= a) || (b <= a && c>= a)) {
+			return a;
+		} else if ((a > b && c < b) || (a < b && c > b)) {
+			return b;
+		} else {
+			return c;
+		}
+}
+------------------------------------------------------------------
+문제2: 1부터 n까지의 합을 구하는 코드
+public static void main(String[] args) {
+		Scanner std = new Scanner(System.in);
+		System.out.print("n값: ");
+		int n = std.nextInt();
+		int sum = 0;
+		for (int i = 1; i <= n; i++) {
+			sum += i;
+		}
+		System.out.println("1부터" + n + "까지의 합은"+ sum+ "이다");
+	}
+------------------------------------------------------------------
+1부터 n까지의 합을 구하는 코드(n은 양수만 받을때)
+public static void main(String[] args) {
+		Scanner std = new Scanner(System.in);
+		int n;
+		do {
+			System.out.print("n값: ");
+			n = std.nextInt();
+		} while (n<=0);
+		 
+		int sum = 0;
+		for (int i = 1; i <= n; i++) {
+			sum += i;
+		}
+		System.out.println("1부터" + n + "까지의 합은"+ sum+ "이다");
+	}
+------------------------------------------------------------------
+문제3: 정수 a,b를 포함하여 그 사이의 모든 정수의 합을 구하여 반환하는 메서드
+public static int sumOf(int a, int b) {
+		int sum = 0;
+		for(int i = a; i <= b; i++) {
+			sum += i;
+		}
+		return sum;
+		
+		
+	}
+
+	public static void main(String[] args) {
+		
+		Scanner std = new Scanner(System.in);
+		
+		System.out.print("a값 : ");
+		int a = std.nextInt();
+		System.out.print("b값 : ");
+		int b = std.nextInt();
+		System.out.println("a,b사이의 값은" + sumOf(a,b)+"입니다");
+		
+		
+		
+
+	}
+------------------------------------------------------------------
+문제3에서 a와b에크기를 비교한 코드
+public static int sumOf(int a, int b) {
+		int min;
+		int max;
+		
+		if(a<b) {
+			min = a; max = b;
+		} else {
+			min = b; max = a;
+		}
+		int sum = 0;
+		for(int i = min; i <= max; i++) {
+			sum += i;
+		}
+		return sum;
+		
+		
+	}
+
+	public static void main(String[] args) {
+		
+		Scanner std = new Scanner(System.in);
+		
+		System.out.print("a값 : ");
+		int a = std.nextInt();
+		System.out.print("b값 : ");
+		int b = std.nextInt();
+		System.out.println("a,b사이의 값은" + sumOf(a,b)+"입니다");
+		
+		
+		
+
+	}
+------------------------------------------------------------------
+문제4: n까지의 합을 구하는코드(ex  n값을 3을 입력했을경우 1+2+3=6이출력)
+public static void main(String[] args) {
+		Scanner std = new Scanner(System.in);
+		int n;
+		do {
+			System.out.print("n값: ");
+			n = std.nextInt();
+		} while (n<=0);
+		
+		int sum = 0;
+		for (int i = 1; i <= n; i++) {
+			if(i < n) {
+				System.out.print(i + "+");
+			}else {
+				System.out.print(i + "=");
+			}
+			sum += i;
+		}
+		System.out.println(sum);
+		
+	}
+------------------------------------------------------------------
+버전2
+public static void main(String[] args) {
+		Scanner std = new Scanner(System.in);
+		int n;
+		do {
+			System.out.print("n값: ");
+			n = std.nextInt();
+		} while (n<=0);
+		
+		int sum = 0;
+		for (int i = 1; i < n; i++) {
+			System.out.print(i + "+");
+			sum += i;
+		}
+		System.out.print(n + "=");
+		sum +=n;
+		System.out.println(sum);
+		
+	}
+------------------------------------------------------------------
+문제5: +,-기호를 번갈아 출력하는 프로그램(ex n값:12 출력:+-+-+-+-+-+-)
+public static void main(String[] args) {
+		Scanner std = new Scanner(System.in);
+		int n;
+		do {
+			System.out.print("n값: ");
+			n = std.nextInt();
+		} while (n<=0);
+		
+		for (int i = 0; i < n ; i++) {
+			if(i % 2 == 0) {
+				System.out.print("-");
+			}else {
+			System.out.print("+");
+			}
+		}
+				
+	}
+------------------------------------------------------------------
+버전2
+public static void main(String[] args) {
+		Scanner std = new Scanner(System.in);
+		int n;
+		do {
+			System.out.print("n값: ");
+			n = std.nextInt();
+		} while (n<=0);
+		
+		for (int i = 0; i < n/2 ; i++) {
+			System.out.print("+-");
+		}
+		if (n % 2 != 0) {
+			System.out.print("+");
+		}
+	}
+
+------------------------------------------------------------------
+문제6: *를 n개 출력하되 w개마다 줄을 바꿔서 출력하는 프로그램
+public static void main(String[] args) {
+		Scanner std = new Scanner(System.in);
+		int w = 0;
+		int n = 0;
+		int c = 0;
+		do {
+			System.out.print("n값: ");
+			n = std.nextInt();
+		} while (n<=0);
+		
+		do {
+			System.out.print("w값: ");
+			w = std.nextInt();
+		} while (w<=0 || w>n);
+		for (int i = 0; i < n; i++) {
+			if(w == c) {
+				System.out.println();
+				c=0;
+			}
+			System.out.print("*");
+			c++;
+		}
+		
+
+	}
+------------------------------------------------------------------
+문제7: 2자리 양수를 입력받는 프로그램
+public static void main(String[] args) {
+		Scanner std = new Scanner(System.in);
+		int n,w; 
+		
+		do {
+			System.out.print("no값: ");
+			n = std.nextInt();
+			
+		} while (n<10 || n>99);
+		System.out.printf("no값은: %d",n);
+		
+
+	}
+------------------------------------------------------------------
+프로젝트(1번2번3번4번 메뉴)
+package java0711;
+
+import java.util.Scanner;
+
+public class project {
+
+	public static void main(String[] args) {
+		boolean run = true;
+		boolean run2 = true;
+		Scanner scan = new Scanner(System.in);
+		
+		
+		while(run) {
+			System.out.println("-------------------------------");
+			System.out.println("1.로그인 : 2.회원가입 : 3.예금/출금 : 4.종료");
+			System.out.println("-------------------------------");
+			System.out.print("선택> ");
+			int menuNum1 = Integer.parseInt(scan.nextLine());
+			
+			switch (menuNum1){
+			case 1:
+				System.out.println("로그인 처리");
+				System.out.print("아이디: ");
+				String id = scan.nextLine();
+				System.out.print("패스워드: ");
+				String strPassword = scan.nextLine();
+				int password = Integer.parseInt(strPassword);
+				if(id.equals("java")) {
+					if(password == 12345) {
+						System.out.println("로그인 성공");
+					}else {
+						System.out.println("로그인 실패:패스워드가 틀림");
+					}
+				}else {
+					System.out.println("로그인 실패:아이디가 존재하지 않음");
+				}
+				break;
+			case 2:
+				System.out.println("회원 가입");
+				System.out.println("[필수 정보 입력]");
+				System.out.print("1. 이름: ");
+				String name = scan.nextLine();
+				System.out.print("2. 주민번호 앞 6자리: ");
+				String num = scan.nextLine();
+				System.out.print("3. 전화번호: ");
+				String pnum = scan.nextLine();
+				
+				System.out.println("[입력된 내용]");
+				System.out.println("이름: "+name);
+				System.out.printf("주민번호 앞 6자리: "+num);
+				System.out.printf("전화번호: "+pnum);
+				
+				break;
+			case 3:
+				int balance = 0;
+				while(run2) {
+					System.out.println("-------------------------------");
+					System.out.println("1.예금 : 2.출금 : 3.잔고 : 4.종료");
+					System.out.println("-------------------------------");
+					System.out.print("선택> ");
+					int menuNum3 = Integer.parseInt(scan.nextLine());
+					switch (menuNum3) {
+					case 1:
+						System.out.print("예금액> ");
+						balance += Integer.parseInt(scan.nextLine());
+						break;
+					case 2:
+						System.out.print("출금액> ");
+						balance -= Integer.parseInt(scan.nextLine());
+						break;
+					case 3:
+						System.out.printf("잔고> %d\n",balance);
+						break;
+					case 4:
+						run2 = false;
+						break;	
+					}
+					System.out.println();
+				}
+				System.out.println("예금/출금 프로그램 종료");
+				break;
+			case 4:
+				run = false;
+				break;
+							
+			}
+				
+		}		
+		
+		System.out.println("프로그램 전체 종료");		
+	}	
+}
+
+
+------------------------------------------------------------------
+배열에서 최대값을 구하는 코드
+public class Max {
+	public static void main(String[] args) {
+		int a[] = {1, 3, 10, 2, 8};
+		int max = a[0];
+		for(int i = 0; i< a.length; i++) {
+			if(max < a[i]) {
+				max = a[i];
+			}
+		}
+		System.out.println("최대값: " + max);
+	}
+}
+------------------------------------------------------------------
+7월12일(project참고)
+정보
+-임의의 정수를 뽑는 방법으로 Math.random()메서드를 활용한다
+
+-Set<Integer> lottoSet = new HashSet<>(); // 중복을 허용하지 않는 Set 사용
+
+-for (int n : a) {                             // for-each, 향상된 for 문
+System.out.println(n);
+}
+
+- source -> Generate Constructor usingfields : 생성자 생성에 필요
+             -> Generate toString()
+
+-객체 입출력 보조 스트림: 페이지649쪽 참고
+-implements Serializable: 객체를 파일에 저장하기위해 직렬화해야하는데 이때 사용
+
+-Member[] list2 = (Member[]) ois.readObject();
+System.arraycopy(list2, 0, list, 0, list2.length);            페이지 218쪽,219쪽참고
+------------------------------------------------------------------
+팩토리얼 코드(반복문)
+public class Factorial1 {
+	public static int fac(int n) {
+		int res = 1;
+		for (int i = 1; i<= n; i++) {
+			res *= i;
+		}
+		return res;
+	}
+	public static void main(String[] args) {
+		int num = 4;
+		int result = fac(num);
+		System.out.println(result);
+
+	}
+
+}
+------------------------------------------------------------------
+재귀호출 메서드
+public class Factorial1 {
+	public static int fac2(int n) {   // 재귀호출 메서드(recursive)
+		if (n==0) {
+			return 1;
+		}else {
+			return n * fac2(n-1);
+		}
+	}
+	public static void main(String[] args) {
+		int num = 4;
+		int result = fac2(num);
+		System.out.println(result);
+
+	}
+
+}
+------------------------------------------------------------------
+로또번호 뽑는 코드
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
+
+public class LottoEx {
+
+	public static void main(String[] args) {
+		Random rand = new Random();
+		Set<Integer> lottoSet = new HashSet<>(); // 중복을 허용하지 않는 Set 사용
+		while (lottoSet.size()<6) {
+			int number = rand.nextInt(45) + 1;
+			lottoSet.add(number);
+		}
+		
+		/*lottoSet.add(14);
+		lottoSet.add(14);
+		lottoSet.add(7);
+		System.out.println(lottoSet.size());*/
+		System.out.println(lottoSet);
+		
+	}
+
+}
+------------------------------------------------------------------
+버블
+public class BubbleEx {
+
+	public static void main(String[] args) {
+		int a[] = {10, 3, 1, 4, 2};
+		
+		for (int i = 0; i < a.length-1; i++) {
+			for(int j = a.length-1; j > i; j--) {
+				if (a[j] < a[j-1]) {
+					int tmp = a[j];
+					a[j] = a[j-1];
+					a[j-1] = tmp;
+				}
+			}
+		}
+		for (int i=0; i < a.length; i++) {
+			System.out.print(a[i]+" ");
+		}
+		System.out.println();
+	}
+	
+}
+------------------------------------------------------------------
+향상된 for문
+public static void main(String[] args) {
+		int[][] array = {{95, 86}, 
+						 {83, 92, 96},
+						 {78,83,93,87,88}};
+		
+
+			int sum = 0;
+			double avg = 0.0;
+			int cnt = 0;
+			for (int i = 0; i<array.length; i++) {
+				for(int j =0; j<array[i].length; j++) {
+					sum +=array[i][j];
+					cnt++;
+				}
+			}
+			avg = (double)sum/cnt;
+			System.out.println("sum: " + sum);
+			System.out.println("avg: " + avg);
+
+	}
+
+------------------------------------------------------------------
+Search 코드
+public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		String a[] = {"Hello", "자바", "가나다", "동서울", "스프링"};
+		String val;
+		
+		System.out.print("찾을 문자열:");
+		val = scan.nextLine();
+		int find = -1; // 찾기 전 또는 못찾았을 때 
+		
+		for (int i = 0; i < a.length; i++) {
+			if (a[i].equals(val)) {
+				find = i;
+				break;
+			}
+		}
+		System.out.println("인덱스:"+find);
+	}
+
+------------------------------------------------------------------
+문제1: 2차원 배열을 이용하여 국어점수와 수학점수를 입력받아 학생별 평균을 출력하는 코드
+public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		System.out.print("학생수 입력:");
+		int num = Integer.parseInt(scan.nextLine());
+		double scores[][] = new double[num][3];
+		for (int i =0; i<scores.length; i++) {
+			System.out.println(i+"번째 학생");
+			System.out.print("국어 점수:");
+			scores[i][0] = Double.parseDouble(scan.nextLine());
+			System.out.print("수학 점수:");
+			scores[i][1] = Double.parseDouble(scan.nextLine());
+			scores[i][2] = (scores[i][0] + scores[i][1])/2;
+			System.out.println("평균:"+ scores[i][2]);
+			
+			
+			
+		}
+		
+	
+
+	}
+
+------------------------------------------------------------------
+객체를 파일에 저장하는 코드
+package project1;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
+public class Ex3 {
+
+	public static void main(String[] args) {
+		Member[] list = {
+				new Member("강하나", "911224", "010-1234-5678"),
+				new Member("김하나", "891224", "010-1234-3456"),
+				new Member("이하나", "901224", "010-7890-5678")
+		};
+		try (FileOutputStream fos = new FileOutputStream("c:\\temp\\members.dat");
+				ObjectOutputStream oos = new ObjectOutputStream(fos)){
+			
+			oos.writeObject(list);
+			System.out.println("객체를 파일에 저장했습니다.");
+			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+}
+------------------------------------------------------------------
+파일에서 객체를 가져오는 코드
+package project1;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
+public class Ex4 {
+
+	public static void main(String[] args) {
+		Member[] list = null;
+		try (FileInputStream fis = new FileInputStream("c:\\temp\\members.dat");
+				ObjectInputStream ois = new ObjectInputStream(fis)){
+			list = (Member[]) ois.readObject();
+			System.out.println("파일에서 객체를 가져왔습니다.");
+
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		for (Member member : list) {
+			System.out.println(member);
+		}
+	}
+}
+------------------------------------------------------------------
+7월15일
+정보
+-컬렉션 프레임워크의 주요 인터페이스로는 List, Set, Map이 있다
+
+------------------------------------------------------------------
+list 코드
+public class ArrayListEx2 {
+
+	public static void main(String[] args) {
+		ArrayList<String> list; // String list[];
+		list = new ArrayList<String>(); // new String[]; 
+//		ArrayList<String> list2 = new ArrayList<String>();
+//		ArrayList<String> list3 = new ArrayList<>();
+//		List<String> list4 = new ArrayList<>();
+		
+		list.add("홍길동");
+		list.add("자바");
+		list.add("Hello");
+		
+// 		이터레이터 (자바 디자인 패턴)
+		Iterator<String> it = list.iterator();
+		while (it.hasNext()) {
+			String str = it.next();
+			System.out.println(str);
+		}
+//		for (String str : list) {
+//			System.out.println(str);
+//		}
+		
+	}
+------------------------------------------------------------------
+public class ArrayListEx1 {
+
+	public static void main(String[] args) {
+		ArrayList<Object> list; list = new ArrayList<>(); 
+
+		list.add(123);
+		list.add("홍길동");
+		list.add("자바");
+		list.add("Hello");
+		
+// 		이터레이터 (자바 디자인 패턴)
+		Iterator<Object> it = list.iterator();
+		while (it.hasNext()) {
+			Object str = it.next();
+			int num = (int)str + 100;
+			System.out.println(num);
+		}
+//		for (String str : list) {
+//			System.out.println(str);
+//		}
+		
+	}
+------------------------------------------------------------------
+vector
+public class VectorEx1 {
+
+	public static void main(String[] args) {
+		List<String> list = new Vector<>(); 
+
+		
+		list.add("홍길동");
+		list.add("자바");
+		list.add("Hello");
+		
+// 		이터레이터 (자바 디자인 패턴)
+		Iterator<String> it = list.iterator();
+		while (it.hasNext()) {
+			Object str = it.next();
+			int num = (int)str + 100;
+			System.out.println(num);
+		}
+//		for (String str : list) {
+//			System.out.println(str);
+//		}
+		
+	}
+
+------------------------------------------------------------------
+7월16일
+정보
+클래스의 구성멤버
+- public class ClassName{
+	int fieldname; //필드
+                ClassName() {...} //생성자
+         	void methodName() {...} //메소드
+   }
+------------------------------------------------------------------
+-필드(Field): 객체의 데이터가 저장되는 곳
+필드 선언: 클래스 중괄호 {}블록 어디서든 선언하나, 생성자와 메소드 내부에서는 선언할 수 없다
+
+필드 사용: 클래스 내부의 생성자와 메소드에서 바로 사용이 가능하나, 클래스 외부에서 사용할 경우
+반드시 객체를 생성하고 참조 변수를 통해 사용해야한다 
+------------------------------------------------------------------
+-생성자(Constructor): 객체 생성 시 초기화 역할 담당
+생성자 오버로딩: 매개변수를 달리하는 생성자를 여러 개 선언하는 것
+public class 클래스 {
+    클래스 ( [타입 매개변수, ...]) {
+                                                               [생성자 오버로딩]
+                                                               매개 변수의 타입, 개수, 순서가 다르게 선언  
+     ...
+     }
+    클래스 ( [타입 매개변수, ...]) {
+
+     ...
+     }
+}
+기본 생성자(Default Constructor): 클래스 선언 시 컴파일러에 의해 자동으로 추가되는 생성자
+
+생성자 선언: 클래스로부터 객체를 생성할 때 호출되는 생성자를 명시적으로 선언할 수 있다
+생성자를 선언하면 기본 생성자는 생성되지 않는다
+
+매개변수: 생성자 호출 시 값을 전달받기 위해 선언되는 변수
+
+다른 생성자 호출: this()
+this는 객체 자신에 대한 레퍼런스다
+this 와 this()는 다르다
+------------------------------------------------------------------
+-메소드(Method): 객체의 동작에 해당하는 실행 블록
+메소드 선언부: 메소드 시그너처
+리턴타입 메소드이름 ([매개변수선언, ...]){
+	실행할 코드 작성하는 곳
+}
+리턴타입: 메소드가 리턴하는 결과의 타입을 표시한다
+
+메소드 이름: 메소드의 기능이 드러나도록 식별자 규칙에 맞게 이름을 지어준다
+숫자로 시작하면 안되고 $와 _를 제외한 특수 문자를 사용하지 말아야 한다
+메소드 이름은 소문자로 작성한다
+서로 다른 단어가 혼합된 이름이면 뒤이어 오는 단어의 첫 글자는 대문자로 작성한다
+
+매개 변수 선언: 메소드를 실행할 때 필요한 데이터를 받기 위한 변수를 선언한다
+
+메소드 실행 블록: 실행할 코드를 작성한다
+
+메소드 오버로딩 : 클래스 내에 같은 이름의 메소드를 여러 개 선언하는 것
+class 클래스 {
+   리턴 타입 메소드이름 (타입 변수, ...) {...}
+    상관없음    동일        매개변수의 타입,개수, 순서가 달라야함
+   리턴 타입 메소드이름 (타입 변수, ...) {...}
+
+void: 리턴값이 없는 메소드는 리턴 타입으로 void를 기술해야한다
+
+매개변수: 메소드 호출 시 제공되는 매개값은 메소드 선언부의 매개변수에 차례대로 대입되어
+메소드 블록 실행 시 이용된다
+
+return문: 메소드 선언부에 리턴 타입이 있다면 리턴값을 지정하기 위해 return문이 반드시 있어야 한다
+리턴타입이 void라면 return문은 필요없지만 메소드 실행 종료를 위해 사용 할 수도 있다
+------------------------------------------------------------------
+-lombok 다운로드 -> cmd에 java -jar lombok.jar 명령어 실행
+buldpath->configureBuildpath->Libraries->classpath클릭->Add External JARs
+------------------------------------------------------------------
+this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+-스윙을 실행했을때 윈도우창을 x키를 클릭하면 프로그램이 종료하게하는 코드
+클래스 상속: 부모클래스의 필드와 메소드를 자식클래스에서 사용할 수 있도록한다
+class 자식클래스 extends 부모클래스{
+//필드
+//생성자
+//메소드
+}
+
+-super()는 부모의 기본생성자를 호출한다
+자식클래스( 매개변수선언, ... ){
+      super( 매개값, ... );
+      ...
+}
+
+메소드 재정의: 부모메소드를 자식클래스에서 다시 정의하는 것
+재정의방법
+-부모의 메소드와 동일한 시그너처(리턴타입,메소드이름.매개변수목록)를 가져야한다
+
+-접근 제한을 더 강하게 재정의할 수 없다
+(부모메소드가 public 접근 제한을 가지고 있을 경우 재정의하는 자식메소드는 default나 private 접근 제한으로 수정할 수 없다는 뜻
+단 반대는 가능하다 부모 메소드가 default 접근 제한을 가지면 재정의하는 자식메소드는 default 또는 public 접근 제한을 가질 수 있다)
+
+-새로운 예외(Exception)를 throws할 수 없다
+
+자바는 다중상속을 허용하지 않는다
+------------------------------------------------------------------
+생성자&기본생성자 코드
+Cat.java
+public class Cat{
+	private String breed; // 품종
+	private String color; // 색깔
+	private int age; // 나이
+	
+	
+	
+	public Cat(String breed) {
+//		super(); // this()
+//		this.breed = breed;
+		this(breed, "흰색", 10);
+	}
+	
+	public Cat(String breed, String color) {
+//		super();
+//		this.breed = breed;
+//		this.color = color;
+		this(breed, color, 10);
+	}
+	
+	public Cat(String breed, String color, int age) {
+		super(); //this. super.
+		this.breed = breed;
+		this.color = color;
+		if (age > 9) {
+			this.age = age;
+		}
+		
+	}
+	
+	Cat(){ // 기본 생성자
+		System.out.println("Cat()");
+	}
+	
+	Cat(int age) { // 생성자
+	}
+	
+	@Override
+	public String toString() {
+		return "고양이 [품종=" + breed + ", 색깔=" + color + ", 나이=" + age + "]";
+	}
+	
+	public String getBreed() {
+		return breed;
+	}
+	
+	public void setBreed(String breed) {
+		this.breed = breed;
+	}
+	
+	public String getColor() {
+		return color;
+	}
+	
+	public void setColor(String color) {
+		this.color = color;
+	}
+	
+	public int getAge() {
+		return age;
+	}
+	
+	public void setAge(int age) {
+		if (age > 9) {
+			this.age = age;
+		}else {
+			this.age = 10;
+		}
+		
+	}
+
+	
+}
+
+Ex1.java
+public class Ex1 {
+
+	public static void main(String[] args) {
+		Cat cat = new Cat("페르시안", "검정", 9);
+		cat.setAge(9);
+		System.out.println(cat);
+
+	}
+
+}
+------------------------------------------------------------------
+swing 코드
+import javax.swing.JFrame;
+
+public class MyFrame extends JFrame{
+	
+	public MyFrame() {
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setTitle("안녕 스윙");
+		this.setLocation(700,300);
+		this.setSize(500, 300);
+		this.setVisible(true);
+	}
+	public static void main(String[] args) {
+		new MyFrame();
+
+	}
+
+}
+------------------------------------------------------------------
+상속 코드
+부모클래스
+public class Point {
+	int x, y;
+	
+	public Point() {
+		System.out.println("부모 기본 생성자 호출");
+	}
+	
+	public Point(int x, int y) {
+		super();
+		this.x = x;
+		this.y = y;
+	}
+
+	void method1() {
+		System.out.println(x + "," + y);
+	}
+}
+------------------------------------------------------------------
+자식클래스
+public class ColorPoint extends Point{
+	
+	public ColorPoint() {
+		super(100, 200);
+		System.out.println("자식 기본 생성자 호출");
+		System.out.println(x);
+		method1();
+	}
+	
+	public ColorPoint(int x, int y) {
+		super(x, y);
+		
+	}
+
+	@Override
+	void method1() {
+		
+		super.method1();
+		System.out.println("자식이 오버라이딩!");
+	}
+	
+	
+
+}
+------------------------------------------------------------------
+메인클래스
+public class Ex2 {
+
+	public static void main(String[] args) {
+		ColorPoint colorPoint = new ColorPoint();
+//		System.out.println(colorPoint.x);
+//		System.out.println(colorPoint.y);
+//		colorPoint.method1();
+	}
+
+}
+------------------------------------------------------------------
+7월17일
+정보
+-인스턴스 멤버: 객체를 생성한 후 사용할 수 있는 필드와 메소드
+
+-정적멤버: 클래스에 고정된 멤버로서 객체를 생성하지 않고 사용할 수 있는 필드와 메소드
+static:정적 멤버를 선언할 때 사용하는 키워드
+
+-접근 제한자: 클래스와 인터페이스를 다른 패키지에서 사용하지 못하도록 막을 필요가 있다
+그리고 객체 생성을 막기 위해 생성자를 호출하지 못하게 하거나 필드나 메소드를 사용하지 못하도록
+막아야되는경우도 있다 이때 접근제한자를 사용한다
+
+----------------------------------------------------------------------------
+접근 제한                                    적용 대상                                     접근할 수 없는 클래스
+----------------------------------------------------------------------------
+public                               클래스,필드,생성자,메소드                                 없음
+----------------------------------------------------------------------------
+protected                               필드,생성자,메소드                자식클래스가 아닌 다른패키지에 소속된 클래스
+----------------------------------------------------------------------------
+default                              클래스,필드,생성자,메소드                          다른 패키지에 소속된 클래스
+----------------------------------------------------------------------------
+private                                  필드,생성자,메소드                                    모든 외부 클래스
+----------------------------------------------------------------------------
+-클래스는 public, default 접근 제한을 가진다
+-생성자는 public, default, private, protected 접근 제한을 가진다
+
+-Getter/Setter: 필드는 외부에서 접근할 수 없도록 막고 메소드는 공개해서 외부에서 메소드를 통해
+필드에 접근하도록 유도한다 필드의 값을 외부로 리턴해주는 메소드를 Getter
+외부에서 값을 받아 필드를 변경하는 메소드를 Setter
+
+-클래스를 선언할 때 final 키워드를 class 앞에 붙이면 상속할 수 없다
+-메소드를 선언할 때 final 키워드를 붙이면 재정의를 할 수 없다
+
+-다형성: 객체 사용 방법은 동일하지만 실행결과가 다양하게 나오는 성질을 말한다
+자식 객체가 재정의된 메소드를 가지고 있을 경우 부모 타입으로 자동 타입 변환 후에
+메소드를 호출하면 재정의된 자식 메소드가 호출 되면서 다양한 실행결과를 가져온다
+------------------------------------------------------------------
+7월18일
+정보
+-추상(abstract)
+추상 클래스: 클래스들의 공통적인 필드와 메소드를 추출해서 선언한 클래스
+
+추상 메소드: 추상 클래스에서만 선언할 수 있고 메소드의 선언부만 있는 메소드
+추상 메소드는 자식 클래스에서 재정의되어 실행 내용을 결정해야 한다
+
+-인터페이스: 객체의 사용방법을 정의한 타입이며 개발 코드와 객체가 서로 통신하는 접점역할
+개발코드가 인터페이스의 메소드를 호출하면 인터페이스는 객체의 메소드를 호출시킨다
+구성멤버는 상수필드와 추상메소드가 있다
+
+-상수필드: 기본적으로 public static final 특성을 갖는다 관례적으로 필드 이름은 모두 대문자로 작성하고
+선언 시 초기값을 대입해야한다
+
+-추상메소드: 인터페이스에 선언된 메소드는 public abstract가 생략되고 메소드 선언부만 있다
+구현 클래스는 반드시 추상 메소드를 재정의해야한다
+
+-implements: 구현 클래스는 어떤 인터페이스로 사용 가능한지(어떤 인터페이스를 구현하고 있는지)를 기술하기 위해 
+클래스 선언 시 implements키워드를 사용한다 
+
+-자동 타입변환: 구현 객체가 인터페이스 변수에 대입되는 것
+
+-다형성: 상속은 같은 종류의 하위 클래스를 만드는 기술이고 인터페이스는 사용 방법이 동일한 클래스를
+만드는 기술이라는 개념상의 차이는 있지만 둘 다 다형성을 구현하는 방법은 비슷하다 
+모두 재정의와 타입 변환 기능을 제공하기 때문이다
+
+-강제 타입 변환: 인터페이스에 대입된 구현 객체를 다시 원래 구현 클래스 타입으로 변환하는 것
+
+-instanceof: 강제 타입 변환을 하기 전에 변환이 가능한지 조사할 때 사용
+상속에서는 자식 클래스 타입인지, 인터페이스에서는 구현 클래스 타입인지를 확인할 때 사용
+
+-인터페이스 상속: 클래스는 다중 상속을 허용하지 않지만 인터페이스는 다중 상속을 허용한다
+extends 키워드 뒤에 상위 인터페이스가 올 수 있다
+------------------------------------------------------------------
+swing으로 만든 계산기 코드
+1번째 방법
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class Cal extends JFrame{
+	JButton plus, minus, multiply, divide;
+	JTextField num1, num2;
+	JLabel label02;
+	
+	public Cal() {
+		
+		setTitle("계산기 화면");
+		setSize(300, 250);	
+
+		
+		JPanel titlePanel = new JPanel();
+		titlePanel.setBounds(0, 0, 300,40);
+		add(titlePanel);
+		JLabel title = new JLabel("계산기", JLabel.CENTER);
+		title.setFont(new Font("함초롱돋움", Font.BOLD, 20));
+		titlePanel.add(title);	
+
+		
+			
+		JPanel numPanel = new JPanel();		
+		numPanel.setBounds(0, 40, 300, 40);
+		add(numPanel);		
+		num1 = new JTextField(5);	
+		numPanel.add(num1);
+		num2 = new JTextField(5);
+		numPanel.add(num2);
+	
+		
+		
+		JPanel btPanel01 = new JPanel();	
+		btPanel01.setBounds(0, 80, 300, 40);
+		add(btPanel01);		
+		plus = new JButton("+");		
+		btPanel01.add(plus);
+		minus = new JButton("-");
+		btPanel01.add(minus);
+		
+		
+		JPanel btPanel02 = new JPanel();	
+		btPanel02.setBounds(0, 120, 300, 40);
+		add(btPanel02);		
+		multiply = new JButton("*");	
+		btPanel02.add(multiply);
+		divide = new JButton("/");
+		btPanel02.add(divide);
+				
+		
+		JPanel resultPanel = new JPanel();
+		resultPanel.setBounds(0, 160, 300, 40);
+		add(resultPanel);
+		JLabel label01 = new JLabel("계산결과 : ");
+		label02 = new JLabel("");
+		resultPanel.add(label01);
+		resultPanel.add(label02);
+	
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLayout(null);
+		setVisible(true);		
+		plus.addActionListener(new MyListener());
+		minus.addActionListener(new MyListener());
+		multiply.addActionListener(new MyListener());
+		divide.addActionListener(new MyListener());
+		
+	}
+	
+	class MyListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+//			System.out.println(e.getActionCommand());
+			double result = 0.0;
+			double no1 = Double.parseDouble(num1.getText());
+			double no2 = Double.parseDouble(num2.getText());
+			switch (e.getActionCommand()) {
+			case "+": result = no1 + no2; break;
+			case "-": result = no1 - no2; break;
+			case "*": result = no1 * no2; break;
+			case "/": result = no1 / no2; break;
+			}
+//			if (e.getSource()==plus) {
+//				result = no1 + no2;
+//			}else if(e.getSource()==minus) {
+//				result = no1 - no2;
+//			}else if(e.getSource()==multiply) {
+//				result = no1 * no2;
+//			}else if(e.getSource()==divide) {
+//				result = no1 / no2;
+//			}
+			label02.setText(String.valueOf(result));
+		}
+		
+	}
+	
+	public static void main(String[] args) {  
+		new Cal();
+	}
+
+}
+------------------------------------------------------------------
+2번째 방법
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class Cal2 extends JFrame implements ActionListener{
+	JButton plus, minus, multiply, divide;
+	JTextField num1, num2;
+	JLabel label02;
+	
+	public Cal2() {
+		
+		setTitle("계산기 화면");
+		setSize(300, 250);	
+
+		
+		JPanel titlePanel = new JPanel();
+		titlePanel.setBounds(0, 0, 300,40);
+		add(titlePanel);
+		JLabel title = new JLabel("계산기", JLabel.CENTER);
+		title.setFont(new Font("함초롱돋움", Font.BOLD, 20));
+		titlePanel.add(title);	
+
+		
+			
+		JPanel numPanel = new JPanel();		
+		numPanel.setBounds(0, 40, 300, 40);
+		add(numPanel);		
+		num1 = new JTextField(5);	
+		numPanel.add(num1);
+		num2 = new JTextField(5);
+		numPanel.add(num2);
+	
+		
+		
+		JPanel btPanel01 = new JPanel();	
+		btPanel01.setBounds(0, 80, 300, 40);
+		add(btPanel01);		
+		plus = new JButton("+");		
+		btPanel01.add(plus);
+		minus = new JButton("-");
+		btPanel01.add(minus);
+		
+		
+		JPanel btPanel02 = new JPanel();	
+		btPanel02.setBounds(0, 120, 300, 40);
+		add(btPanel02);		
+		multiply = new JButton("*");	
+		btPanel02.add(multiply);
+		divide = new JButton("/");
+		btPanel02.add(divide);
+				
+		
+		JPanel resultPanel = new JPanel();
+		resultPanel.setBounds(0, 160, 300, 40);
+		add(resultPanel);
+		JLabel label01 = new JLabel("계산결과 : ");
+		label02 = new JLabel("");
+		resultPanel.add(label01);
+		resultPanel.add(label02);
+	
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLayout(null);
+		setVisible(true);		
+		plus.addActionListener(this);
+		minus.addActionListener(this);
+		multiply.addActionListener(this);
+		divide.addActionListener(this);
+		
+	}
+	
+	public static void main(String[] args) {  
+		new Cal2();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		double result = 0.0;
+		double no1 = Double.parseDouble(num1.getText());
+		double no2 = Double.parseDouble(num2.getText());
+		switch (e.getActionCommand()) {
+		case "+": result = no1 + no2; break;
+		case "-": result = no1 - no2; break;
+		case "*": result = no1 * no2; break;
+		case "/": result = no1 / no2; break;
+		}
+//		if (e.getSource()==plus) {
+//			result = no1 + no2;
+//		}else if(e.getSource()==minus) {
+//			result = no1 - no2;
+//		}else if(e.getSource()==multiply) {
+//			result = no1 * no2;
+//		}else if(e.getSource()==divide) {
+//			result = no1 / no2;
+//		}
+		label02.setText(String.valueOf(result));
+		
+	}
+
+}
+------------------------------------------------------------------
+3번째 방법
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class Cal3 extends JFrame {
+	JButton plus, minus, multiply, divide;
+	JTextField num1, num2;
+	JLabel label02;
+	
+	public Cal3() {
+		
+		setTitle("계산기 화면");
+		setSize(300, 250);	
+
+		
+		JPanel titlePanel = new JPanel();
+		titlePanel.setBounds(0, 0, 300,40);
+		add(titlePanel);
+		JLabel title = new JLabel("계산기", JLabel.CENTER);
+		title.setFont(new Font("함초롱돋움", Font.BOLD, 20));
+		titlePanel.add(title);	
+
+		
+			
+		JPanel numPanel = new JPanel();		
+		numPanel.setBounds(0, 40, 300, 40);
+		add(numPanel);		
+		num1 = new JTextField(5);	
+		numPanel.add(num1);
+		num2 = new JTextField(5);
+		numPanel.add(num2);
+	
+		
+		
+		JPanel btPanel01 = new JPanel();	
+		btPanel01.setBounds(0, 80, 300, 40);
+		add(btPanel01);		
+		plus = new JButton("+");		
+		btPanel01.add(plus);
+		minus = new JButton("-");
+		btPanel01.add(minus);
+		
+		
+		JPanel btPanel02 = new JPanel();	
+		btPanel02.setBounds(0, 120, 300, 40);
+		add(btPanel02);		
+		multiply = new JButton("*");	
+		btPanel02.add(multiply);
+		divide = new JButton("/");
+		btPanel02.add(divide);
+				
+		
+		JPanel resultPanel = new JPanel();
+		resultPanel.setBounds(0, 160, 300, 40);
+		add(resultPanel);
+		JLabel label01 = new JLabel("계산결과 : ");
+		label02 = new JLabel("");
+		resultPanel.add(label01);
+		resultPanel.add(label02);
+	
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLayout(null);
+		setVisible(true);	
+		plus.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				double no1 = Double.parseDouble(num1.getText());
+				double no2 = Double.parseDouble(num2.getText());
+				label02.setText(String.valueOf(no1+no2));
+			}
+		});
+		minus.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				double no1 = Double.parseDouble(num1.getText());
+				double no2 = Double.parseDouble(num2.getText());
+				label02.setText(String.valueOf(no1-no2));
+				
+			}
+		});
+		multiply.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				double no1 = Double.parseDouble(num1.getText());
+				double no2 = Double.parseDouble(num2.getText());
+				label02.setText(String.valueOf(no1*no2));
+				
+			}
+		});
+		divide.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				double no1 = Double.parseDouble(num1.getText());
+				double no2 = Double.parseDouble(num2.getText());
+				label02.setText(String.valueOf(no1/no2));
+				
+			}
+		});
+	}
+	
+	public static void main(String[] args) {  
+		new Cal3();
+	}
+
+
+
+}
+------------------------------------------------------------------
+7월19일
+예외처리
+-예외 클래스: 자바에서는 예외를 클래스로 관리한다 jvm은 프르그램을 실행하는 도중에 예외가
+발생하면 해당 예외 클래스로 객체를 생성한다 그리고 나서 예외 처리 코드에서 예회 객체를 이용
+할 수 있도록 해준다 모든 예외 클래스는 java.lang.Exception 클래스를 상속받는다
+
+예외 종류
+-일반 예외: 컴파일러 체크 예외라고도 한다 프로그램 실행 시 예외가 발생할 가능성이 높기 때문에
+자바 소스를 컴파일하는 과정에서 해당 예외 처리 코드가 있는지 검사한다 만약 예외 처리 코드가 없다면
+컴파일 에러가 발생한다
+
+-실행 예외: 컴파일러 넌 체크 예외라고도 한다 실행 시 예측할 수 없이 갑자기 발생하기 때문에 컴파일하는 과정에서
+예외 처리 코드가 있는지 검사하지 않는다
+
+실행 예외 종류
+NullPointerException, ArrayIndexOutOfBoundsException, NumberFormatException, ClassCastException
+------------------------------------------------------------------
+문제1: dept테이블과 emp 테이블에 대해 자바 코드를 만들어보는 코드(create table, drop table, insert, select
+------------------------------------------------------------------
+문제2: 콘솔창에서 입력을 받아 dept 테이블에 insert하는 자바 프로그램
+------------------------------------------------------------------
+문제3: dept테이블, emp테이블 자료를 출력하는 자바 Swing 프로그램
+(자바 스윙 사용, JTextField, JButton, JTextArea사용, 이벤트 처리)
+------------------------------------------------------------------
+7월22일
+정보
+-중첩 클래스: 클래스 내부에 선언한 클래스를 말한다 중첩 클래스를 사용하면 두 클래스의 멤버들을
+서로 쉽게 접근할 수 있고 외부에는 불필요한 관계 클래스를 감춤으로써 코드의 복잡성을 줄일 수 있다
+
+중첩클래스를 두 가지로 분류
+-멤버 클래스: 클래스의 멤버로서 선언되는 중첩 클래스를 말한다 멤버 클래스는 바깥 객체의 필요 여부에 따라
+인스턴스 멤버 클래스와 정적 멤버 클래스를 말한다
+-인스턴스 멤버 클래스: static 키워드 없이 중첩 선언된 클래스
+인스턴스 필드와 메소드만 선언이 가능하고 정적 필드와 메소드는 선언할 수 없다
+-정적 멤버 클래스: static 키워드로 선언된 클래스
+모든 종류의 필드와 메소드를 선언할 수 있다
+
+-로컬 클래스: 생성자 또는 메서드 블록 내부에 선언된 중첩클래스를 말한다
+접근제한자 및 static을 붙일 수 없다 로컬 클래스 내부에는 인스턴스 필드와 메소드만 선언할 수 있고
+정적 필드와 메소드는 선언할 수 없다
+------------------------------------------------------------------
+프로세서 (CPU)
+-프로세스 (실행중인 프로그램): 애플리케이션을 실행하면 운영체제로부터 실행에 필요한 메모리를 할당받아
+-애플리케이션이 실행되는것
+-멀티 프로세스 -> 리눅스, 유닉스
+-멀티 프로세스 X  멀티 스레드-> 윈도우즈
+-스레드
+------------------------------------------------------------------
+-스레드:코드의 실행흐름
+-멀티 스레드: 하나의 프로세스 내에 동시 실행을 하는 스레드들이 2개 이상인 경우
+-메인 스레드: 자바의 모든 애플리케이션은 메인스레드가 main()메소드를 실행하면서 시작한다
+메인 스레드는 main() 메소드의 첫 코드부터 아래로 순차적으로 실행하고, main()메소의 마지막코드를
+실행하거나 return문을 만나면 실행이 종료된다
+------------------------------------------------------------------
+7월23일
+정보
+-멤버 클래스에서 사용 제한(페이지 435쪽 참고)
+-로컬 클래스에서 사용 제한(페이지 436쪽 참고)
+
+-implements Runnable 과 extends Thread
+두 작업 중 하나를 메인 스레드가 아닌 다른 스레드에서 실행할때 사용 한다
+
+-람다식: 익명 함수
+인터페이스에 추상메서드가 하나는 무조건 있어야 돌아간다
+
+람다의 표현식
+( )->{ }
+
+-표준 API의 함수적 인터페이스
+자바 8에서부터는 빈번하게 사용되는 함수적 인터페이스는 java.util.function 표준 API 패키지로 제공한다
+이 패키지에서 제공하는 함수적 인터페이스의 목적은 메소드 또는 생성자의 매개 타입으로 사용되어 람다식을 대입할 수 있게 함이다
+
+Consumer: 매개값 O, 라턴값 X
+------------------------------------------------------------------
+7월24일
+정보
+-디자인 패턴 23가지
+Iterator패턴, Adapter패턴, TemplateMethod패턴, Singleton패턴
+코드 javaDP 참조
+
+-tomcat서버연결
+tomcat9.0 다운로드
+이클립스에서 window->preferences->server->runtime...->add->apache9.0
+------------------------------------------------------------------
+7월25일
+정보
+-익명 자식 객체: 자식 클래스가 재사용되지 않고 오로지 특정 위치에서 사용할 경우라면 자식 클래스를
+명시적으로 선언하는 것은 귀찮은 작업이 된다 이 경우 익명 자식 객체를 생성해서 사용하는 것이 좋은 방법이다
+
+익명 자식 객체 생성하는 방법
+-부모클래스 [필드|변수] = new 부모클래스(매개값, ...) {
+//필드
+//메소드
+};
+
+익명 구현 객체: 구현 클래스가 재사용되지 않고 오로지 특정 위치에서 사용할 경우라면 구현 클래스를
+명시적으로 선언하는 것은 귀찮은 작업이 된다 이 경우 익명 구현 객체를 생성해서 사용하는 것이 좋은 방법이다
+
+익명 구현 객체 생성하는 방법
+-인터페이스 [필드|변수] = new 인터페이스() {
+//인터페이스에 선언된 추상 메소드의 실제 메소드 선언
+//필드
+//메소드
+};
+
+-예외처리에서 throws 키워드: 메소드 선언부 끝에 작성되어 메소드에서 처리하지 않은 예외를 호출한 곳으로
+떠넘기는 역할을 한다 throws 키워드 뒤에는 떠넘길 예외클래스를 쉼표로 구분해서 나열해주면 된다
+
+Arrays.sort는 배열을 정렬 할 때 사용
+Collections.sort는 리스트를 정렬 할 때 사용
+
+서블릿에서 response.setContentType("text/html;charset=utf8"); 이 코드를 사용하면 웹 페이지에 한글을나오게한다
+PrintWriter out = response.getWriter(); 이 코드보다 위에 써야한다
+
+서블릿에서 request.setCharacterEncoding("UTF-8"); 이 코드를 사용하면 한글이 깨지지않고 나온다
+------------------------------------------------------------------
+익명 자식 객체 코드
+class Parent {
+	int x;
+	void method() {
+		System.out.println(x);
+	}
+}
+//new Parent(){}; = 익명자식객체
+public class Ex1 {
+
+	public static void main(String[] args) {
+		Parent parent = new Parent() {
+			
+			void method2() {
+				System.out.println("오직 나만 사용");
+			}
+			@Override
+			void method() {
+				x = 100;
+				System.out.println("나는 익명 자식 객체!");
+				super.method();
+				method2();
+			}   
+			
+		};
+		parent.method();
+//		parent.method2();  X
+	}
+
+}
+------------------------------------------------------------------
+익명 구현 객체 코드
+interface Parent2 {
+	void method();
+}
+
+public class Ex2 {
+
+	public static void main(String[] args) {
+		Parent2 parent2 = new Parent2() {
+			
+			@Override
+			public void method() {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+
+	}
+
+}
+------------------------------------------------------------------
+throws키워드 사용
+public static void method() throws ClassNotFoundException {
+		Class.forName("asdh.asds.asd");
+	}
+	
+	public static void main(String[] args) {
+		try {
+			method();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+}
+------------------------------------------------------------------
+Arrays.sort를 사용해 배열을 정렬하는 코드
+package java0725;
+
+import java.util.Arrays;
+
+public class ArrayEx1 {
+
+	public static void main(String[] args) {
+		int[] array = {3,1,13,2,8,5,1};
+		Arrays.sort(array);
+		System.out.println(Arrays.toString(array));
+		for (int n : array) {
+			System.out.println(n);
+		}
+	}
+
+}
+------------------------------------------------------------------
+Comparator을 이용한 배열을 역순으로 정렬하는 코드
+package java0725;
+
+import java.util.Arrays;
+import java.util.Comparator;
+
+public class ArrayEx2 {
+
+	public static void main(String[] args) {
+		Integer[] array = {3,1,13,2,8,5,1};
+		
+		Comparator<Integer> c = new Comparator<Integer>() {
+			
+			@Override
+			public int compare(Integer o1, Integer o2) {
+				return o2.compareTo(o1);
+			}
+		};
+		
+		Arrays.sort(array, c);
+		System.out.println(Arrays.toString(array));
+		for (int n : array) {
+			System.out.println(n);
+		}
+	}
+
+}
+------------------------------------------------------------------
+Arrays.binarySearch를 이용한 코드
+package java0725;
+
+import java.util.Arrays;
+
+public class ArrayEx3 {
+
+	public static void main(String[] args) {
+		int[] array = {1,1,4,5,7,8,11,12,17,21,24}; // 정렬이 된 상태에서 가능
+//		int[] array = {3,5,1,6,2,9,4,12,13,16,24};
+		int found = Arrays.binarySearch(array, 5);
+		System.out.println(found);
+
+	}
+
+}
+------------------------------------------------------------------
+7월26일
+정보
+웹의 동작
+-요청(Request): 클라이언트에서 서버로 정보를 요구하기 위해 보내는 메시지 이다. 이 요청 방식에는 GET방식과POST방식이 있다
+-응답(Response): HTTP에서 요구된 메시지에 대한 응답, HTML, 이미지 등이 응답의 내용이 된다
+
+정적 페이지: 변하지 않는 성격을 가진 페이지
+동적 페이지: 자동으로 생성된 페이지, 기존의 웹 서버에 새로운 기능을 가진 프로그램을 탑재하여 동적으로 HTML을 생성
+
+동적페이지                                                                              서버측
+사용자(CLients)  <-------->      웹서버     <------------> 데스크탑  <-------->  동적인 웹 컨테츠에 응답하기 위한 부가적인 프로그램
+                        http 요청/응답                                                              http 요청/응답    
+
+
+서블릿이란
+JSP 이전 세대의 동적 웹페이지 생성 언어
+Server + Applet의 합성어 ->Servlet
+브라우저에 호출하면 WAS에서 웹 페이지를 동적으로 생성
+
+WAS의종류
+Tomcat, WebLogic(BEA), WebSphere(IBM), ZEUS(티맥스-국산), JBOSS ,Sun Application Server(Sun microsystems)
+------------------------------------------------------------------
+7월29일
+정보
+-Date 클래스: 날짜를 표현하는 클래스이다. Date 클래스는 객체 간에 날짜 정보를 주고 받을 때 매개 변수나 리턴 타입으로 주로 사용된다
+-SimpleDateFormat: 날짜 데이터를 원하는 형태로 출력하기 위해 사용한다 (java0729 Ex4코드 참고)
+
+
+-동기화 메소드: 멀티 스레드 프로그램에서 단 하나의 스레드만 실행할 수 있는 코드 영역을 임계영역이라고 한다
+자바는 임계영역을 지정하기 위해 동기화 메소드를 제공한다 스레드가 객체 내부의 동기화 메소드를 실행하면 즉시 객체에 잠금을 걸어
+다른 스레드가 동기화 메소들를 실행하지 못하도록 한다(java0729 sec01.exam07패키지 참고)
+
+-임계영역: 한 순간 반드시 프로세스 하나만 진입해야 하는데, 프로그램에서 임계 자원을 이용하는 부분으로 공유 자원의 독점을 보장하는 코드 영역을 의미한다. 
+임계 구역은 지정된 시간이 지난 후 종료된다.
+
+-스레드 상태: 스레드를 생성하고 시작하면 스레드는 다양한 상태를 가지게 된다. 스레드의 상태는 자동으로 변경될 수 있고 코드에 의해서 변경될 수 있다
+
+-일시정지: 실행중인 스레드를 일정 시간 멈추게 하고 싶다면 Thread 클래스의 정적 메소드인 sleep()을 사용하면 된다
+Thread.sleep() 메소드를 호출한 스레드는 주어진 시간동안 일시 정지 상태가 되고 다시 실행 대기 상태로 돌아간다
+
+-안전한 종료: Thread는 스레드를 즉시 종료하기 위해서 stop()메소드를 제공하고 있는데 이 메소드는 deprecated(중요도가 떨어져 이제 사용되지 않음)되었습니다
+그 이유는 stop()메소드로 스레드를 갑자기 종료하게 되면 스레드가 사용 중이던 자원들이 불안전한 상태로 남겨 지기 때문이다
+스레드를 안전하게 종료하기 위해서 stop플래그를 이용하거나 interrupt()메소드를 이용하는 방법이 있다.
+(java0729 StopFlagExample, printThread1 / InterruptExample, printThread2 참고)
+------------------------------------------------------------------
+7월30일
+정보
+-컬렉션 프레임워크: 자료구조를 사용해서 객체들을 효율적으로 추가, 삭제, 검색할 수 있도록 인터페이스와 구현 클래스들을 java.util 패키지에서 제공한다
+
+-List 컬렉션: 배열과 비슷하게 객체를 인덱스로 관리한다 배열과 차이점은 저장용량이 자동으로 증가하며 객체를 저장할 때 자동 인덱스가 부여되는 것이다
+추가,삭제,검색을 위한 다양한 메소드가 제공된다 List컬렉션은 동일한 객체를 중복 저장할 수 있고 null도 저장이 가능하다(java0730 Ex1 코드 참고)
+
+-Set컬렉션: 저장 순서가 유지 되지 않는다 또한 객체를 중복해서 저장할 수 없고 하나의 null만 저장할 수 있다
+수학의 집합과 비슷하다 집한은 순서와 상관없고 중복이 허용되지 않기 때문이다((java0730 Ex2 코드 참고)
+
+-Map컬렉션: 키와 값으로 구성된 Map.Entry 객체를 저장하는 구조를 가지고 있다 Entry는 Map 인터페이스 내부에 선언된 중첩 인터페이스이다
+여기서 키와 값은 모두 객체이다 키는 중복 저장될 수 없지만 값은 중복 저장될 수 있다 만약 기존에 저장된 키와 동일한 키로 값을 저장하면
+기존의 값은 없어지고 새로운 값으로 대체된다(java0730 HashMapEx1 코드 참고)
+
+스트림 (구글 참고)
+------------------------------------------------------------------
+8월1일
+정보
+-입출력 스트림: 자바에서 데이터는 스트림을 통해 입출력된다 프로그램이 출발지냐 또는 도착지냐에 따라서 사용하는 스트림의 종류가 결정된다
+프로그램이 도착지이면 흘러온 데이터를 입력받아야 하므로 입력 스트림을 사용한다 반대로 프로그램이 출발지면 데이터를 출력해야 하므로
+출력 스트림을 사용한다
+
+-InputStream: 바이트 기반 입력 스트림의 최상위 클래스로 추상 클래스이다 모든 바이트 기반 입력 스트림은 InputStream 클래스를 상속받아
+만들어진다 InputStream 클래스에는 바이트 기반 입력 스트림이 기본적으로 가져야 할 메소드가 정의되어 있다
+
+-OutputStream: 바이트 기반 출력 스트림의 최상위 클래스로 추상 클래스이다 모든 바이트 기반 출력 스트림은 OutputStream 클래스를 상속받아
+만들어진다 OutputStream 클래스에는 바이트 기반 출력 스트림이 기본적으로 가져야 할 메소드가 정의되어 있다
+
+-Reader: 문자 기반 입력 스트림의 최상위 클래스로 추상클래스이다. 모든 문자 기반 입력 스트림은 Reader 클래스를 상속받아
+만들어진다 Reader 클래스에는 문자 기반 입력 스트림이 기본적으로 가져야 할 메소드가 정의되어 있다
+
+-Writer: 문자 기반 출력 스트림의 최상위 클래스로 추상 클래스이다 모든 바이트 기반 출력 스트림은 Writer 클래스를 상속받아
+만들어진다 Writer 클래스에는 바이트 기반 출력 스트림이 기본적으로 가져야 할 메소드가 정의되어 있다
+
+-보조 스트림: 다른 스트림과 연결이 되어 여러 가지 편리한 기능을 제공해주는 스트림

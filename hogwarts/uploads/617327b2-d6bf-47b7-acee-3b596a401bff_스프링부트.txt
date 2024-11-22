@@ -1,0 +1,13 @@
+설치
+자바버전 21
+java -jar tab키
+바로가기 만들기
+폴더 _devSts4만들기
+=========================================
+sts3검색
+https://github.com/spring-attic/toolsuite-distribution/wiki/Spring-Tool-Suite-3
+Spring Tool Suite 3.9.18
+full distribution on Eclipse 4.21 첫번째다운
+_sts3폴더생성 폴더에 압축풀기
+C:\_sts3.9\sts-bundle\sts-3.9.18.RELEASE 들어가서 sts.exe바로가기만들기
+_devSts3폴더생성

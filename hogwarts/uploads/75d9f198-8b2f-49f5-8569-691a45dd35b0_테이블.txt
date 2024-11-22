@@ -1,0 +1,17 @@
+CREATE TABLE members (
+    member_id NUMBER PRIMARY KEY,
+    name VARCHAR2(100) NOT NULL,
+    email VARCHAR2(100) NOT NULL UNIQUE,
+    password VARCHAR2(100) NOT NULL,
+    created_at date DEFAULT sysdate
+);
+
+create SEQUENCE members_seq;
+
+insert into members(member_id, name, email, password)
+values (MEMBERS_SEQ.nextval, '홍길동', 'hong@korea.com', '1234');
+
+insert into members(member_id, name, email, password)
+values (MEMBERS_SEQ.nextval, '강하나', 'kang@korea.com', '1234');
+
+select count(*) from members where email = 'hong@korea.com' and name = '홍길동';

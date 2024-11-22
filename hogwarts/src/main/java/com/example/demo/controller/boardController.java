@@ -20,8 +20,13 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -76,7 +81,8 @@ public class boardController {
         return "/board/boardWrite";
     }
     @PostMapping("/insertBoard")
-    public String insertBoard(@ModelAttribute Board board) throws Exception {
+    public String insertBoard(@ModelAttribute Board board,
+                              @RequestParam("file") MultipartFile file) throws Exception {
         // 로그인한 사용자 이름을 가져와서 Board 객체에 설정
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();  // 로그인한 사용자 이름
@@ -90,7 +96,7 @@ public class boardController {
         board.setCreatedDate(LocalDateTime.now());
         board.setModifyDate(LocalDateTime.now());
 
-        boardService.insertBoard(board);
+        boardService.insertBoard(board,file);
 
         // 게시글 목록으로 리다이렉트
         return "redirect:/board/boardList";
@@ -116,6 +122,8 @@ public class boardController {
         model.addAttribute("isAdmin", isAdmin);
         model.addAttribute("board", board);
         model.addAttribute("loggedInUsername", username);
+        model.addAttribute("filePath", board.getFilePath());
+
         return "board/boardDetail";
     }
 

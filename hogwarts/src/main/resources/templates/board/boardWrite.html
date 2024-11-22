@@ -33,7 +33,7 @@
 		<h1>작성</h1>
 		<div class="split--div"></div>
 <div class="container">
-	<form th:action="@{/board/insertBoard}" th:object="${board}" method="post">
+	<form th:action="@{/board/insertBoard}" th:object="${board}" method="post" enctype="multipart/form-data">
 		<table class="board_detail">
 			<tr>
 				<td><label for="title">제목</label></td>
@@ -43,12 +43,25 @@
 				<td><label for="content">내용</label></td>
 				<td><textarea th:field="*{content}" id="content" placeholder="게시글 내용을 입력하세요" required></textarea></td>
 			</tr>
+			<tr>
+				<td><label for="file">파일 업로드</label></td>
+				<td><input type="file" name="file" id="file" /></td>
+			</tr>
 		</table>
+		<div class="button-group">
 		<input type="submit" value="저장" class="btn">
+		<input type="button" class="btn-cancel" value="취소" onclick="goBack()">
+		</div>
 	</form>
 
 </div>
 	</main>
+	<script>
+		// 이전 페이지로 돌아가는 함수
+		function goBack() {
+			window.history.back();
+		}
+	</script>
 </div>
 
 </body>

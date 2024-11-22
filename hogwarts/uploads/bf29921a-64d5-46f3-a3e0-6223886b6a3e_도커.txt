@@ -1,0 +1,117 @@
+7월9일 도커
+------------------------------------------------------------------
+도커 설치
+- 페이지 60쪽 참고
+------------------------------------------------------------------
+도커에 우분투 설치
+docker run -it --name first-ubuntu ubuntu /bin/bash
+
+빠져나오기
+exit
+
+다시 들어가기
+docker exec -it first-ubuntu /bin/bash
+
+apt-get update
+
+apt-get install vim -y
+
+a, i (편집명령)
+esc 키으로 편집모드를 빠져나감
+:wq (저장 후 탈출) :q! (저장안하고 탈출)
+
+apt-get install default-jdk -y: jdk설치
+
+java -version: 자바 버전
+
+HelloWorld.java코드
+public class HelloWorld {
+        public static void main(String[] ar) {
+                System.out.println("Hello World");
+        }
+}
+------------------------------------------------------------------
+javac HelloWorld.java
+
+java HelloWorld
+
+exit
+
+docker cp first-ubuntu:/home/ubuntu/HelloWorld.java .
+
+docker cp HelloWorld.java first-ubuntu:/home/ubuntu/
+------------------------------------------------------------------
+도커 명령어
+-페이지 92쪽,101쪽,102쪽~ 참고
+docker ps -a: 현재 존재하는 컨테이너의 목록 출력
+docker run --name 컨테이너이름 -d httpd: 컨테이너 생성 및 실행
+docker stop 컨테이너이름: 컨테이너를 종료
+docker rm 컨테이너이름: 컨테이너 삭제
+docker run --name 컨테이너이름 -d -p 8880:80 httpd
+-d:백그라운드로 실행
+-p 8080:80 호스트의 포트8880을 컨테이너 포트 80으로 포워딩
+------------------------------------------------------------------
+7월10일 도커
+------------------------------------------------------------------
+docker image ls:도커 이미지가 무엇이있는지 확인하는 명령어
+docker image rm:도커 이미지를 지우는명령어
+docker stop 아이디:도커 컨테이너를 멈추는 명령어
+docker start 아이디:도커 컨테이너를 다시 시작하는명령어
+------------------------------------------------------------------
+도커 데스크탑에 files 선택
+/usr/local/apache2/htdocs/index.html - 수정 가능
+
+복사(양방향 가능)
+docker cp apa000ex2:/usr/local/apache2/htdocs/index.html .
+docker cp index.html apa000ex2:/usr/local/apache2/htdocs
+
+nginx
+docker run --name nginx000ex6 -d -p 8884:80 nginx
+
+MySQL
+docker run --name mysql000ex7 -dit -e MYSQL_ROOT_PASSWORD=1234 mysql
+-dit: 백그라운드에서 실행 및 키보드를통해 컨테이너 내부의 파일 시스템을 조작
+-e MYSQL_ROOT_PASSWORD= : MySQL의 루트 패스워드를 지정
+mysql: MySQL 이미지 이름, 버전을 지정하지 않았으므로 최신버전이 사용된다
+
+mysql 연결
+docker exec -it mysql000ex7 mysql -u root -p
+
+mysql -u root -p: mysql에 root로 진입 
+------------------------------------------------------------------
+mysql 명령어
+show databases; : 데이터베이스를 보여주는명령어
+create database 데이터베이스 이름; : 데이터베이스를 만드는 명령어 
+use 데이터베이스 이름; 데이터베이스로 들어가는 명령어
+create table 테이블이름 (deptno int(11),dname varchar(14),loc varchar(13)); : 테이블 생성
+insert into 테이블이름 (deptno, dname, loc) values(10, 'Account', 'Seoul'); : 테이블안에 칼럼추가
+show tables; : 모든 테이블을 보여주는 명령어
+desc 테이블이름; 테이블이름에 테이블을 보여주는 명령어
+ select *from 테이블이름;  테이블안 칼럼을보여주는 명령어
+------------------------------------------------------------------
+파워셀에서
+docker rm $(docker ps -aq):도커 모두지우는 명령어
+------------------------------------------------------------------
+7월15일
+도커에 워드 프레스 만드는 명령어
+docker network create 네트워크_이름(wordpress000net1)
+
+docker run --name mysql000ex11 -dit --net=wordpress000net1 -e MYSQL_ROOT_PASSWORD=myrootpass 
+-e MYSQL_DATABASE=wordpress000db 
+-e MYSQL_USER=wordpress000kun 
+-e MYSQL_PASSWORD=wkunpass mysql:8.0.33 
+--character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci 
+--default-authentication-plugin=mysql_native_password
+
+docker run --name wordpress000ex12 -dit --net=wordpress000net1 -p 8085:80
+ -e WORDPRESS_DB_HOST=mysql000ex11 -e WORDPRESS_DB_NAME=wordpress000db 
+-e WORDPRESS_DB_USER=wordpress000kun 
+-e WORDPRESS_DB_PASSWORD=wkunpass wordpress
+------------------------------------------------------------------
+virtualBox 설치
+페이지358쪽~ 참고
+visual code에 Remote설치
+------------------------------------------------------------------
+docker search oracle
+docker pull oracleinanutshell/oracle-xe-11g
+docker run -d -p 1521:1521 oracleinanutshell/oracle-xe-11g

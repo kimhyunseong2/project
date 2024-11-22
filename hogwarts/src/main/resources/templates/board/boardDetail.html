@@ -60,11 +60,33 @@
         </tr>
         <tr>
           <th>제목</th>
-          <td colspan="3"><input type="text" id="title" name="title" th:value="${board.title }"/></td>
+          <td colspan="3"><input type="text" id="title" name="title" th:value="${board.title }"
+                                 th:readonly="${board.username != loggedInUsername}"/></td>
         </tr>
         <tr>
           <th>내용</th>
-          <td colspan="3"><textarea title="내용" id="content" name="content" th:text="${board.content }"></textarea>
+          <td colspan="3"><textarea title="내용" id="content" name="content" th:text="${board.content }"
+                                    th:readonly="${board.username != loggedInUsername}"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <th>첨부 파일</th>
+          <td colspan="3">
+            <div th:if="${#strings.endsWith(board.filePath, '.jpg') or
+                      #strings.endsWith(board.filePath, '.jpeg') or
+                      #strings.endsWith(board.filePath, '.png') or
+                      #strings.endsWith(board.filePath, '.gif')}">
+            <img th:src="@{/uploads/{fileName}(fileName=${board.filePath})}" alt="Uploaded Image" style="max-width: 300px;" />
+            <br />
+            <a th:href="@{/uploads/{fileName}(fileName=${board.filePath})}" download>사진 다운로드</a>
+            </div>
+            <div th:if="${board.filePath != null and board.filePath != '' and !(#strings.endsWith(board.filePath, '.jpg') or
+                        #strings.endsWith(board.filePath, '.jpeg') or
+                        #strings.endsWith(board.filePath, '.png') or
+                        #strings.endsWith(board.filePath, '.gif'))}">
+              <p th:text="${board.filePath}"></p>
+              <a th:href="@{/uploads/{fileName}(fileName=${board.filePath})}" download>파일 다운로드</a>
+            </div>
           </td>
         </tr>
         </tbody>

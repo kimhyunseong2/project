@@ -11,12 +11,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
-import java.util.HashSet;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
-import java.util.Set;
+import java.util.UUID;
 
 @Service
 public class BoardService {
@@ -42,9 +45,28 @@ public class BoardService {
         return boardRepository.findAll();
     }
 
-    public void insertBoard(Board board) {
+    private final String UPLOAD_DIR = "C:/Users/DU/project/hogwarts/uploads";
+
+    public void insertBoard(Board board, MultipartFile file) throws IOException {
+        if (file != null && !file.isEmpty()) {
+            Path uploadPath = Paths.get(UPLOAD_DIR);
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);  // 디렉토리 생성
+            }
+            // 파일 이름을 고유하게 설정
+            String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+            Path filePath = Paths.get(UPLOAD_DIR, fileName);
+            file.transferTo(filePath.toFile());
+
+            board.setFilePath(fileName);
+        } else {
+
+            board.setFilePath("");
+        }
         boardRepository.save(board);
+
     }
+
 
     @Transactional
     public Board selectBoardDetail(Long id,boolean increaseHitCount) throws Exception{
@@ -105,4 +127,6 @@ public class BoardService {
 
 
     }
+
+
 }

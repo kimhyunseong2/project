@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -28,7 +29,7 @@ public class Board {
     @Column(nullable = false)
     private String content;
 
-
+    @Column(nullable = false)
     private String username;  // 작성자 (사용자)
 
     @Column(nullable = false)
@@ -37,7 +38,6 @@ public class Board {
     @Column(nullable = false)
     private LocalDateTime modifyDate = LocalDateTime.now();
 
-
     @Column(nullable = false)
     private int hit = 0;
 
@@ -45,11 +45,18 @@ public class Board {
     private int likeCount = 0;
 
 
+    private String filePath;
+
+    private String fileName;
+
     @ElementCollection
     @CollectionTable(name = "board_likes", joinColumns = @JoinColumn(name = "id"))
     @Column(name = "username")
     private Set<String> likedUsernames = new HashSet<>();
 
     private String role;
+
+
+
 
 }
