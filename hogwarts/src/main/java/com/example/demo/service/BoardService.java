@@ -42,7 +42,7 @@ public class BoardService {
     }
 
     public List<Board> selectAllPosts()  {
-        return boardRepository.findAll();
+        return boardRepository.findAll(Sort.by(Sort.Order.asc("role"),Sort.Order.asc("createdDate")));
     }
 
     private final String UPLOAD_DIR = "C:/Users/DU/project/hogwarts/uploads";

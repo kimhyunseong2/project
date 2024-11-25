@@ -49,10 +49,10 @@ public class Board {
 
     private String fileName;
 
-    @ElementCollection
-    @CollectionTable(name = "board_likes", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "username")
-    private Set<String> likedUsernames = new HashSet<>();
+    @ElementCollection // 좋아요를 누른 사용자들의 이름을 저장하는 컬렉션
+    @CollectionTable(name = "board_likes", joinColumns = @JoinColumn(name = "id")) // 'board_likes'라는 이름의 테이블을 사용하고, 'id' 컬럼을 기준으로 연결
+    @Column(name = "username") // 컬렉션의 각 항목은 'username'이라는 이름의 컬럼에 저장됨
+    private Set<String> likedUsernames = new HashSet<>(); // 좋아요를 누른 사용자들의 이름을 저장하는 Set 컬렉션, 중복을 허용하지 않음
 
     private String role;
 

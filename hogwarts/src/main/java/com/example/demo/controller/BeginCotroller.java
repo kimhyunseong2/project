@@ -56,7 +56,7 @@ public class BeginCotroller {
             List<Notification> notifications = notificationService.getNotificationsByRecipient(username);
             model.addAttribute("notifications", notifications);
         }
-        List<Board> latestPost = boardService.selectLatestPost(); // 최신 게시글 조회
+        List<Board> latestPost = boardService.selectLatestPost();
         model.addAttribute("latestPost", latestPost);
         return "main";
     }

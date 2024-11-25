@@ -29,7 +29,7 @@
               </tr>
               </thead>
               <tbody>
-              <!-- 최신 게시글이 있을 경우 출력 -->
+
               <tr th:each="post : ${latestPost}">
                 <td th:text="${post.id}"></td>
                 <td th:text="${post.title}"></td>
@@ -37,7 +37,6 @@
                 <td th:text="${post.hit}"></td>
               </tr>
 
-              <!-- 최신 게시글이 없을 경우 -->
               <tr th:if="${latestPost == null or latestPost.isEmpty()}">
                 <td colspan="4">등록된 게시글이 없습니다.</td>
               </tr>
